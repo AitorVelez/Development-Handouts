@@ -1,0 +1,24 @@
+
+
+<config>
+  
+ <name>Red faces Game</name>
+ 
+  <window>
+    <fullscreen value = "false"/>
+    <borderless value = "false"/>
+    <resizable value = "false"/>
+    <fullscreen_window value = "false"/>
+    <screen_size width = "1024" height = "768" scale = "1"/>
+  </window>
+  
+<audio>
+  <music value="50">
+  
+  </music>
+  <fx value="50">
+  </fx>
+ 
+  </audio>
+
+ </config>
