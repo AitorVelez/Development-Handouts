@@ -272,11 +272,14 @@ const char* j1App::GetOrganization() const
 // TODO 5: Create a method to actually load an xml file
 // then call all the modules to load themselves
 
-bool j1App::LoadCamInfo()
+bool j1App::LoadGame()
 {
 	bool ret = true;
 
-	pugi::xml_parse_result result = config_file.load_file("caminfo.xml");
+	pugi::xml_document LoadCamData;
+	pugi::xml_node rootCam;
+
+	pugi::xml_parse_result result = LoadCamData.load_file("caminfo.xml");
 
 	if (result == NULL)
 	{
@@ -285,8 +288,8 @@ bool j1App::LoadCamInfo()
 	}
 	else
 	{
-		config = config_file.child("config");
-		app_config = config.child("app");
+		rootCam = config_file.child("caminfo");
+		app_config = rootCam.child("renderer").child("camera");
 	}
 
 	return ret;
@@ -296,3 +299,38 @@ bool j1App::LoadCamInfo()
 
 // TODO 7: Create a method to save the current state
 
+bool j1App::SaveGame() {
+
+	bool ret = true;
+
+	//LOG("Saving Game State to %s...", save_game.GetString());
+
+	// xml object were we will store all data
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	root = data.append_child("game_state");
+
+	p2List_item<j1Module*>* item = modules.start;
+
+	while (item != NULL && ret == true)
+	{
+		ret = item->data->save(root.append_child(item->data->name.GetString()));
+		item = item->next;
+	}
+
+	if (ret == true)
+	{
+		data.save_file(save_game.GetString());
+		LOG("... finished saving", );
+	}
+	else
+		LOG("Save process halted from an error in module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
+
+	data.reset();
+	want_to_save = false;
+	return ret;
+
+
+
+}

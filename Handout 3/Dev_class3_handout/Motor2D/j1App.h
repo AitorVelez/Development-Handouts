@@ -55,7 +55,8 @@ private:
 
 	// Load config file
 	bool LoadConfig();
-	bool LoadCamInfo();
+	bool LoadGame();
+	bool SaveGame();
 	// Call modules before each loop iteration
 	void PrepareUpdate();
 
@@ -94,6 +95,11 @@ private:
 
 	p2SString			title;
 	p2SString			organization;
+
+	mutable bool		want_to_save;
+	bool				want_to_load;
+	p2SString			load_game;
+	mutable p2SString	save_game;
 
 };
 
