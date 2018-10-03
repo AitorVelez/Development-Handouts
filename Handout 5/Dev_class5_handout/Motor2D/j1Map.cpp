@@ -38,13 +38,13 @@ void j1Map::Draw()
 
 	SDL_Rect rect = item->data->GetTileRect(1);
 
-	//for (int j = 0; j < data.height; j++) {
+	for (int j = 0; j < data.height*data.tile_height; j+=item->data->tile_height) {
 		
 		for (int i = 0; i < data.width*data.tile_width; i +=item->data->tile_width) {
 			
 			App->render->Blit(item->data->texture, i, 0, &rect);
 		}
-	//}
+	}
 	
 	
 		// TODO 9: Complete the draw function
@@ -347,4 +347,9 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 		memset(layer->tiles, 0, layer->height*layer->width * sizeof(uint));		//per recorrer tot un array i posarli tot valor 0
 
 		return ret = true;
+	}
+
+	inline uint MapLayer::Get(int x, int y) {
+		
+		return
 	}
