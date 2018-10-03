@@ -13,6 +13,20 @@ private:
 
 public:
 	String() {};
+	
+	String(const String &chain) 
+	{
+		assert(chain.string != nullptr);
+		if (chain.string != nullptr) {
+			my_allocate = strlen(chain.string) + 1;
+			this->string = new char[my_allocate];
+
+		}
+
+	}
+
+
+
 	String(const char* string)
 	{
 		assert(string != nullptr);
@@ -23,12 +37,22 @@ public:
 		}
 
 	}
+
+	String operator=(const String &chain) {
+		
+		
+
+
+	}
+
 	~String() {
 		if (string != nullptr) {
 			delete[] string;
+			my_allocate = 0u;
 		}
 		
 	}
+
 	
 
 };
