@@ -40,19 +40,32 @@ void j1Map::PropagateBFS()
 	// TODO 1: If frontier queue contains elements
 	// pop the last one and calculate its 4 neighbors
 
-	if (frontier.Count() != NULL) 
+	iPoint neibourgh[4] = { { 0,0 },{ 0,0 },{ 0,0 },{ 0,0 } };
+
+	if(frontier.start != nullptr) 
 	{
-		frontier.Pop(frontier.GetLast);
-		visited.add()
+		neibourgh[0] = iPoint(frontier.start->data.x, frontier.start->data.y + 1);
+		neibourgh[1] = iPoint(frontier.start->data.x+1, frontier.start->data.y);
+		neibourgh[2] = iPoint(frontier.start->data.x, frontier.start->data.y -1);
+		neibourgh[3] = iPoint(frontier.start->data.x-1, frontier.start->data.y);
+
+		frontier.Pop(frontier.start->data);
 	}
 
-	+
+	// TODO 2: For each neighbor, if not visited, add it
+    // to the frontier queue and visited list
 
+	for (int i = 0; i < 4; i++) 
+	{
+		if (visited.find(neibourgh[i])==-1)
+		{
+			frontier.Push(neibourgh[i]);
+			visited.add(neibourgh[i]);
+		}
+	}
 	
 
 
-	// TODO 2: For each neighbor, if not visited, add it
-	// to the frontier queue and visited list
 }
 
 void j1Map::DrawBFS()
@@ -93,6 +106,10 @@ bool j1Map::IsWalkable(int x, int y) const
 {
 	// TODO 3: return true only if x and y are within map limits
 	// and the tile is walkable (tile id 0 in the navigation layer)
+
+		
+
+
 	return true;
 }
 
